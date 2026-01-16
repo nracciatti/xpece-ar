@@ -201,7 +201,10 @@ export default function HomePage() {
                   <a className="inline-flex justify-center rounded-full bg-[#5bb000] px-6 py-3 text-white font-semibold hover:bg-[#4e9600] transition">
                     Ir a Tienda
                   </a>
-                  <a className="inline-flex justify-center rounded-full bg-black/5 px-6 py-3 font-semibold text-black hover:bg-black/10 transition">
+                  <a
+                    className="inline-flex justify-center rounded-full bg-black/5 px-6 py-3 font-semibold text-black hover:bg-black/10 transition"
+                    href="https://wa.me/5491161332326"
+                  >
                     Consultar por WhatsApp
                   </a>
                 </div>
