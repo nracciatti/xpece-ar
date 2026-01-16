@@ -119,7 +119,6 @@ export default function HomePage() {
             {
               kind: "video",
               src: "/videos/XPECE_VIDE_SLIDE.mp4",
-              poster: "/images/slider-1-poster.jpg",
               title: "Cargue carnada de hasta 3kg.",
             },
             {

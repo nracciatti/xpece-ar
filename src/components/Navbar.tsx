@@ -107,7 +107,7 @@ export function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 shrink-0">
               <Image
-                src="/images/XPECE_LOGO_GREEN.avif"
+                src="/images/XPECE_LOGO_GREEN.png"
                 alt="XPece"
                 width={140}
                 height={40}
