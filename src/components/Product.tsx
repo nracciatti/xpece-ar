@@ -72,7 +72,7 @@ export default function FeaturedProduct({
             {/* CTAs */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
-                href="/xpece-one"
+                href="/xpece-one-bundle"
                 className="
                   inline-flex items-center justify-center
                   rounded-2xl border border-[color:var(--border)]

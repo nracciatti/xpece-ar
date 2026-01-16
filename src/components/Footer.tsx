@@ -36,7 +36,7 @@ export default function Footer() {
             <ul className="mt-3 space-y-2 text-sm text-white/75">
               {[
                 ["Home", "#home"],
-                ["Características", "#caracteristicas"],
+                ["Características", "#especificaciones"],
                 ["Opiniones", "#opiniones"],
                 ["Producto", "#producto"],
               ].map(([label, href]) => (

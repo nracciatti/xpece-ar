@@ -174,7 +174,7 @@ export default function HomePage() {
 
       <Reveal>
         <FeaturedProduct
-          imageSrc="/images/XPECE_bundle.webp"
+          imageSrc="/images/XPECE_Bundle.webp"
           buyUrl="https://TU-TIENDANUBE.com/xpece-one-bundle"
         />
       </Reveal>
