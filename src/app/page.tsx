@@ -62,7 +62,9 @@ export default function HomePage() {
                 </h1>
 
                 <p className="text-[color:var(--muted)] md:text-lg">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa consectetur hic temporibus, dolore qui, minima suscipit sed cupiditate iste porro, excepturi possimus id iusto illum.
+                  El XPECE ONE es un dron de pesca que permite transportar y
+                  soltar la línea en puntos estratégicos, mejorando el alcance y
+                  la efectividad en cada jornada de pesca.{" "}
                 </p>
 
                 <div className="flex flex-col gap-3 sm:flex-row">
