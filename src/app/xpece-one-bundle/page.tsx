@@ -139,7 +139,7 @@ export default function ProductPage() {
 
                 <div className="mt-7 hidden sm:flex flex-wrap gap-3">
                   <a
-                    href="https://TU-TIENDANUBE.com/producto"
+                    href="https://xpeceargentina.mitiendanube.com/"
                     target="_blank"
                     rel="noreferrer"
                     className="rounded-full bg-[color:var(--primary)] px-6 py-3 text-sm font-semibold text-white shadow-[var(--shadow-sm)] hover:bg-[color:var(--primary-hover)] transition"

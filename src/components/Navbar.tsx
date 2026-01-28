@@ -7,7 +7,7 @@ import { Facebook, Instagram, Menu, X } from "lucide-react";
 
 type NavItem = { label: string; href: string };
 
-const SHOP_URL = "https://TU-TIENDANUBE.com/producto";
+const SHOP_URL = "https://xpeceargentina.mitiendanube.com/";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
