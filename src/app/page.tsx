@@ -9,25 +9,10 @@ import { ParallaxSection } from "@/components/ParallaxSection";
 import { JustFishingSection } from "@/components/JustFishingSection";
 import FeaturedProduct from "@/components/Product";
 // import { HeroVideo } from "@/components/Hero";
-import { ProductHero } from "@/components/ProductHero";
 
 export default function HomePage() {
   return (
     <main>
-      {/* <Reveal>
-        <HeroVideo
-          videoSrc="/videos/XPECE_HERO_VID.mp4"
-          posterSrc="/images/hero-poster.jpg"
-          primaryCtaHref="#productos"
-          primaryCtaLabel="Ver productos"
-          secondaryCtaHref="https://tu-tienda.empretiendanube.com" // cambialo cuando lo tengas
-          secondaryCtaLabel="Comprar"
-        />
-      </Reveal> */}
-
-      {/* lo demás… */}
-      {/* </main>
-
       {/* HERO */}
       <Reveal>
         <section className="relative overflow-hidden">
@@ -144,7 +129,7 @@ export default function HomePage() {
           title="Listo para agua salada"
           body="Xpece es impermeable y está protegido contra el agua salada."
           ctaLabel="Comprar ahora"
-          ctaHref="https://tu-tienda-nube.com" // después lo cambiás
+          ctaHref="https://xpeceargentina.mitiendanube.com/"
         />
       </Reveal>
 
@@ -177,7 +162,7 @@ export default function HomePage() {
       <Reveal>
         <FeaturedProduct
           imageSrc="/images/XPECE_Bundle.webp"
-          buyUrl="https://TU-TIENDANUBE.com/xpece-one-bundle"
+          buyUrl="https://xpeceargentina.mitiendanube.com/"
         />
       </Reveal>
 
@@ -198,7 +183,11 @@ export default function HomePage() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <a className="inline-flex justify-center rounded-full bg-[#5bb000] px-6 py-3 text-white font-semibold hover:bg-[#4e9600] transition">
+                  <a
+                    className="inline-flex justify-center rounded-full bg-[#5bb000] px-6 py-3 text-white font-semibold hover:bg-[#4e9600] transition"
+                    href="https://xpeceargentina.mitiendanube.com/"
+                    target="blank"
+                  >
                     Ir a Tienda
                   </a>
                   <a

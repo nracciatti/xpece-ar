@@ -215,7 +215,7 @@ export default function ProductPage() {
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a
                     className="inline-flex justify-center rounded-full bg-[#5bb000] px-6 py-3 text-white font-semibold hover:bg-[#4e9600] transition"
-                    href="https://www.tiendanube.com/"
+                    href="https://xpeceargentina.mitiendanube.com/"
                     target="blank"
                   >
                     Ir a Tienda

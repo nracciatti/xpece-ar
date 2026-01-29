@@ -3,16 +3,54 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Facebook, Instagram, Menu, X } from "lucide-react";
 
-type NavItem = { label: string; href: string };
+type NavItem = { label: string; href: string; kind?: "link" | "anchor" };
 
+// ✅ Ajustá estas URLs
 const SHOP_URL = "https://xpeceargentina.mitiendanube.com/";
+const PRODUCT_URL =
+  "https://xpeceargentinadronesdepes.mitiendanube.com/productos/xpece-one-bundle/";
+
+// Slider: mensajes de confianza
+const ANNOUNCEMENTS = [
+  "Envíos a todo el país",
+  "Garantía local",
+  "Soporte en Argentina",
+];
 
 export function Navbar() {
+  const pathname = usePathname();
+  const isProductPage = pathname === "/xpece-one-bundle";
+
   const [open, setOpen] = useState(false);
 
-  // controla la barra verde
+  // ✅ Active state: ruta o hash (#opiniones, #contacto)
+  const [activeKey, setActiveKey] = useState<string>(() => {
+    if (typeof window === "undefined") return pathname;
+    return window.location.hash || pathname;
+  });
+
+  // Mantener activeKey sincronizado al cambiar de ruta (Link)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setActiveKey(window.location.hash || pathname);
+  }, [pathname]);
+
+  // Escuchar cambios de hash (#...)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const onHashChange = () => {
+      setActiveKey(window.location.hash || pathname);
+    };
+
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, [pathname]);
+
+  // controla la barra (mostrar/ocultar al scroll)
   const [showAnnouncement, setShowAnnouncement] = useState(true);
   const lastY = useRef(0);
   const ticking = useRef(false);
@@ -53,59 +91,149 @@ export function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  const navItems: NavItem[] = useMemo(
-    () => [
-      { label: "Home", href: "/" },
-      { label: "Opiniones", href: "#opiniones" },
-      { label: "XPece One", href: "/xpece-one-bundle" },
-      { label: "Contacto", href: "#contacto" },
-    ],
-    []
-  );
+  const [annIndex, setAnnIndex] = useState(0);
+  useEffect(() => {
+    if (isProductPage) return; // no mostrar ni animar en producto
+    const id = setInterval(() => {
+      setAnnIndex((i) => (i + 1) % ANNOUNCEMENTS.length);
+    }, 3500);
+    return () => clearInterval(id);
+  }, [isProductPage]);
 
-  const activeHref = "/";
+  const navItems: NavItem[] = useMemo(() => {
+    if (isProductPage) {
+      return [{ label: "Volver al sitio", href: "/", kind: "link" }];
+    }
+
+    return [
+      { label: "Home", href: "/", kind: "link" },
+      { label: "Opiniones", href: "#opiniones", kind: "anchor" },
+      { label: "XPece One", href: "/xpece-one-bundle", kind: "link" },
+      { label: "Contacto", href: "#contacto", kind: "anchor" },
+    ];
+  }, [isProductPage]);
+
+  const renderNavItem = (item: NavItem, isMobile = false) => {
+    const active =
+      (item.kind === "anchor" && activeKey === item.href) ||
+      (item.kind === "link" && activeKey === item.href);
+
+    const classes = [
+      isMobile ? "block px-4 py-3" : "px-5 py-2",
+      "rounded-full text-sm font-semibold transition",
+      active
+        ? "bg-black text-white"
+        : "text-[color:var(--fg)] hover:bg-black/5",
+    ].join(" ");
+
+    const closeMobile = () => {
+      if (isMobile) setOpen(false);
+    };
+
+    // Anchors (Home)
+    if (item.kind === "anchor") {
+      return (
+        <a
+          key={item.href}
+          href={item.href}
+          className={classes}
+          onClick={() => {
+            setActiveKey(item.href);
+            closeMobile();
+          }}
+        >
+          {item.label}
+        </a>
+      );
+    }
+
+    // External links
+    if (item.href.startsWith("http")) {
+      return (
+        <a
+          key={item.href}
+          href={item.href}
+          className={classes}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => {
+            setActiveKey(item.href);
+            closeMobile();
+          }}
+        >
+          {item.label}
+        </a>
+      );
+    }
+
+    // Internal routes
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        className={classes}
+        onClick={() => {
+          setActiveKey(item.href);
+          closeMobile();
+        }}
+      >
+        {item.label}
+      </Link>
+    );
+  };
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Announcement bar */}
-      <div
-        className={[
-          "bg-[color:var(--primary)] text-white overflow-hidden transition-all duration-300",
-          showAnnouncement ? "max-h-12 opacity-100" : "max-h-0 opacity-0",
-        ].join(" ")}
-      >
-        <div className="relative mx-auto max-w-6xl px-4">
-          <div className="h-12 flex items-center">
-            <div className="absolute left-1/2 -translate-x-1/2 text-sm font-semibold tracking-wide whitespace-nowrap">
-              ¿Preguntas? ¡Hablános! +54 9 11 6133-2326 🇦🇷
-            </div>
+      {/* Announcement bar (solo Home) */}
+      {!isProductPage && (
+        <div
+          className={[
+            "bg-[color:var(--primary)] text-white overflow-hidden transition-all duration-300",
+            showAnnouncement ? "max-h-10 opacity-100" : "max-h-0 opacity-0",
+          ].join(" ")}
+        >
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="h-9 flex items-center justify-center relative">
+              {/* Texto rotativo */}
+              <span
+                key={annIndex}
+                className="text-xs sm:text-sm font-semibold tracking-wide animate-[fadeUp_.28s_ease-out]"
+              >
+                {ANNOUNCEMENTS[annIndex]}
+              </span>
 
-            <div className="ml-auto hidden sm:flex items-center gap-3">
-              <a
-                href="#"
-                aria-label="Facebook"
-                className="hover:opacity-80 transition"
-              >
-                <Facebook size={18} />
-              </a>
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="hover:opacity-80 transition"
-              >
-                <Instagram size={18} />
-              </a>
+              {/* Socials a la derecha (solo desktop) */}
+              <div className="absolute right-0 hidden sm:flex items-center gap-3">
+                <a
+                  href="#"
+                  aria-label="Facebook"
+                  className="hover:opacity-80 transition"
+                >
+                  <Facebook size={16} />
+                </a>
+                <a
+                  href="#"
+                  aria-label="Instagram"
+                  className="hover:opacity-80 transition"
+                >
+                  <Instagram size={16} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Main navbar */}
       <div className="bg-white border-b border-[color:var(--border)]">
         <div className="mx-auto max-w-6xl px-4">
           <div className="h-16 flex items-center justify-between gap-3">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 shrink-0">
+            <Link
+              href="/"
+              className="flex items-center gap-3 shrink-0"
+              onClick={() => setActiveKey("/")}
+            >
               <Image
                 src="/images/XPECE_LOGO_GREEN.png"
                 alt="XPece"
@@ -118,43 +246,25 @@ export function Navbar() {
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-3 flex-1 justify-center">
-              {navItems.map((item) => {
-                const active = item.href === activeHref;
-                return (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    className={[
-                      "px-5 py-2 rounded-full text-sm font-semibold transition",
-                      active
-                        ? "bg-black text-white"
-                        : "text-[color:var(--fg)] hover:bg-black/5",
-                    ].join(" ")}
-                  >
-                    {item.label}
-                  </a>
-                );
-              })}
+              {navItems.map((item) => renderNavItem(item, false))}
             </nav>
 
-            {/* 👉 CTA Desktop */}
             <div className="hidden lg:flex">
-              {/* Desktop: CTA integrado (no botón verde) */}
               <a
-                href={SHOP_URL}
+                href={isProductPage ? PRODUCT_URL : SHOP_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="
-    hidden lg:inline-flex items-center gap-2
-    rounded-full border border-[color:var(--border)]
-    bg-white px-4 py-2
-    text-sm font-semibold text-[color:var(--fg)]
-    hover:border-[color:var(--primary)]/40 hover:bg-[color:var(--primary)]/10
-    transition
-  "
+                  hidden lg:inline-flex items-center gap-2
+                  rounded-full border border-[color:var(--border)]
+                  bg-white px-4 py-2
+                  text-sm font-semibold text-[color:var(--fg)]
+                  hover:border-[color:var(--primary)]/40 hover:bg-[color:var(--primary)]/10
+                  transition
+                "
               >
                 <span className="h-2 w-2 rounded-full bg-[color:var(--primary)]" />
-                Tienda
+                {isProductPage ? "Comprar" : "Tienda"}
               </a>
             </div>
 
@@ -176,34 +286,16 @@ export function Navbar() {
             id="mobile-menu"
             className={[
               "lg:hidden overflow-hidden transition-[max-height,opacity] duration-200",
-              open ? "max-h-[420px] opacity-100" : "max-h-0 opacity-0",
+              open ? "max-h-[480px] opacity-100" : "max-h-0 opacity-0",
             ].join(" ")}
           >
             <nav className="pb-4">
               <div className="mt-2 rounded-2xl border border-[color:var(--border)] bg-white overflow-hidden">
-                {navItems.map((item) => {
-                  const active = item.href === activeHref;
-                  return (
-                    <a
-                      key={item.href}
-                      href={item.href}
-                      className={[
-                        "block px-4 py-3 text-sm font-semibold transition",
-                        active
-                          ? "bg-black text-white"
-                          : "text-[color:var(--fg)] hover:bg-black/5",
-                      ].join(" ")}
-                      onClick={() => setOpen(false)}
-                    >
-                      {item.label}
-                    </a>
-                  );
-                })}
+                {navItems.map((item) => renderNavItem(item, true))}
               </div>
 
-              {/* 👉 CTA Mobile */}
               <a
-                href={SHOP_URL}
+                href={isProductPage ? PRODUCT_URL : SHOP_URL}
                 target="_blank"
                 rel="noreferrer"
                 className="
@@ -213,10 +305,12 @@ export function Navbar() {
                   px-4 py-3
                   text-center text-sm font-semibold text-white
                   shadow-[var(--shadow-sm)]
+                  hover:bg-[color:var(--primary-hover)]
+                  transition
                 "
                 onClick={() => setOpen(false)}
               >
-                Comprar ahora
+                {isProductPage ? "Comprar ahora" : "Ir a Tienda"}
               </a>
             </nav>
           </div>
