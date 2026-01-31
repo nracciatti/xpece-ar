@@ -2,14 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
-  topTitle?: string; // "28 Minute Flight Time"
-  topNote?: string; // texto chiquito arriba a la derecha
-  mediaSrc: string; // imagen o poster (si después lo pasás a video)
+  topTitle?: string; 
+  topNote?: string; 
+  mediaSrc: string; 
   mediaAlt?: string;
-  title: string; // "Saltwater Ready"
+  title: string;
   body: string;
-  ctaLabel?: string; // "Buy Now"
-  ctaHref?: string; // link tienda nube
+  ctaLabel?: string; 
+  ctaHref?: string; 
 };
 
 export function SaltwaterSection({
@@ -24,7 +24,6 @@ export function SaltwaterSection({
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-6xl px-4 py-14 md:py-20">
-        {/* Top row: título grande + nota derecha */}
         <div className="relative">
           <h2 className="whitespace-pre-line text-center text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl">
             {topTitle}
@@ -38,7 +37,6 @@ export function SaltwaterSection({
 
         {/* Split */}
         <div className="mt-10 grid gap-10 md:grid-cols-2 md:items-center">
-          {/* Left media (imagen grande con bordes redondeados) */}
           <div className="relative overflow-hidden rounded-3xl bg-neutral-100">
             <div className="aspect-[4/3] md:aspect-[5/4]">
               <Image

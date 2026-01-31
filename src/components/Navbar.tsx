@@ -8,12 +8,10 @@ import { Facebook, Instagram, Menu, X } from "lucide-react";
 
 type NavItem = { label: string; href: string; kind?: "link" | "anchor" };
 
-// ✅ Ajustá estas URLs
 const SHOP_URL = "https://xpeceargentina.mitiendanube.com/";
 const PRODUCT_URL =
   "https://xpeceargentinadronesdepes.mitiendanube.com/productos/xpece-one-bundle/";
 
-// Slider: mensajes de confianza
 const ANNOUNCEMENTS = [
   "Envíos a todo el país",
   "Garantía local",
@@ -26,19 +24,16 @@ export function Navbar() {
 
   const [open, setOpen] = useState(false);
 
-  // ✅ Active state: ruta o hash (#opiniones, #contacto)
   const [activeKey, setActiveKey] = useState<string>(() => {
     if (typeof window === "undefined") return pathname;
     return window.location.hash || pathname;
   });
 
-  // Mantener activeKey sincronizado al cambiar de ruta (Link)
   useEffect(() => {
     if (typeof window === "undefined") return;
     setActiveKey(window.location.hash || pathname);
   }, [pathname]);
 
-  // Escuchar cambios de hash (#...)
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -50,7 +45,6 @@ export function Navbar() {
     return () => window.removeEventListener("hashchange", onHashChange);
   }, [pathname]);
 
-  // controla la barra (mostrar/ocultar al scroll)
   const [showAnnouncement, setShowAnnouncement] = useState(true);
   const lastY = useRef(0);
   const ticking = useRef(false);
@@ -82,7 +76,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Cierra el menú si pasás a desktop
+  // en desktop cierra el menu
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 1024) setOpen(false);
@@ -102,14 +96,17 @@ export function Navbar() {
 
   const navItems: NavItem[] = useMemo(() => {
     if (isProductPage) {
-      return [{ label: "Volver al sitio", href: "/", kind: "link" }];
+      return [
+        { label: "Volver al sitio", href: "/", kind: "link" },
+        { label: "Contacto", href: "/contacto", kind: "link" },
+      ];
     }
 
     return [
       { label: "Home", href: "/", kind: "link" },
       { label: "Opiniones", href: "#opiniones", kind: "anchor" },
       { label: "XPece One", href: "/xpece-one-bundle", kind: "link" },
-      { label: "Contacto", href: "#contacto", kind: "anchor" },
+      { label: "Contacto", href: "/contacto", kind: "link" },
     ];
   }, [isProductPage]);
 
@@ -130,7 +127,6 @@ export function Navbar() {
       if (isMobile) setOpen(false);
     };
 
-    // Anchors (Home)
     if (item.kind === "anchor") {
       return (
         <a
@@ -147,7 +143,6 @@ export function Navbar() {
       );
     }
 
-    // External links
     if (item.href.startsWith("http")) {
       return (
         <a

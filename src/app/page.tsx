@@ -59,16 +59,9 @@ export default function HomePage() {
                   >
                     XPece ONE Bundle
                   </Link>
-                  <Link
-                    href="/nosotros"
-                    className="rounded-xl border border-[color:var(--border)] bg-[color:var(--card)] px-6 py-3 text-center font-semibold hover:opacity-90 transition"
-                  >
-                    Conocé más
-                  </Link>
                 </div>
               </div>
 
-              {/* Video/Imagen placeholder responsive */}
               <div className="relative">
                 <div className="relative w-full aspect-video overflow-hidden rounded-3xl border border-[color:var(--border)] bg-[color:var(--card)] shadow-[var(--shadow)]">
                   <video
