@@ -57,7 +57,7 @@ export default function HomePage() {
                     href="/xpece-one-bundle"
                     className="rounded-xl bg-[color:var(--primary)] px-6 py-3 text-center font-semibold text-black hover:opacity-90 transition"
                   >
-                    XPece ONE Bundle
+                    Ver Productos
                   </Link>
                 </div>
               </div>
@@ -154,8 +154,10 @@ export default function HomePage() {
 
       <Reveal>
         <FeaturedProduct
-          imageSrc="/images/XPECE_Bundle.webp"
-          buyUrl="https://xpeceargentina.mitiendanube.com/"
+          bundleImageSrc="/images/XPECE_Bundle.webp"
+          bundleBuyUrl="https://xpeceargentina.mitiendanube.com/productos/xpece-one-bundle/"
+          bareImageSrc="/images/one-bare/xpece-one-bare.webp"
+          bareBuyUrl="https://xpeceargentina.mitiendanube.com/productos/xpece-one-bare/"
         />
       </Reveal>
 

@@ -13,7 +13,7 @@ type GalleryImage = {
 };
 
 const DEFAULT_BULLETS = [
-  "Drone XPece ONE",
+  "Drone XPece Bare",
   "Control remoto con pantalla",
   "Accesorios esenciales",
   "Baterías + cargador",
@@ -26,25 +26,25 @@ export default function ProductPage() {
   const images: GalleryImage[] = useMemo(
     () => [
       {
-        src: "/images/XPECE_Bundle.webp",
-        alt: "Bundle completo",
+        src: "/images/one-bare/xpece-one-bare.webp",
+        alt: "One BARE",
         label: "Bundle completo",
         bullets: ["Todo incluido", "Listo para usar", "Sin app"],
       },
       {
-        src: "/images/xpece_top_1000_1000.webp",
+        src: "/images/one-bare/xpece-one-dronUp.webp",
         alt: "Vista superior",
         label: "Vista superior",
         bullets: ["Diseño estable", "Estructura robusta", "Listo para pesca"],
       },
       {
-        src: "/images/xpece_and_remote_1000_1000.webp",
+        src: "/images/one-bare/xpece-one-dron2.webp",
         alt: "Vista inferior",
         label: "Vista inferior",
         bullets: ["Cámara y soporte", "Estabilidad en vuelo"],
       },
       {
-        src: "/images/remote_1000_1000.webp",
+        src: "/images/one-bare/xpece-one-remote.webp",
         alt: "Control remoto",
         label: "Control remoto",
         bullets: [
@@ -54,10 +54,10 @@ export default function ProductPage() {
         ],
       },
       {
-        src: "/images/xpece_in_case.webp",
-        alt: "Maletín y accesorios",
+        src: "/images/one-bare/backpack.webp",
+        alt: "Mochila y accesorios",
         label: "Accesorios",
-        bullets: ["Maletín rígido", "Baterías incluidas", "Cargador"],
+        bullets: ["Mochila", "Baterías incluidas", "Cargador"],
       },
     ],
     []
@@ -119,7 +119,7 @@ export default function ProductPage() {
                 >
                   <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-[color:var(--fg)]">
                     XPece ONE{" "}
-                    <span className="text-[color:var(--primary)]">Bundle</span>
+                    <span className="text-[color:var(--primary)]">BARE</span>
                   </h1>
 
                   <p className="mt-3 text-[color:var(--muted)] md:text-lg">

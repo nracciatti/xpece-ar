@@ -9,8 +9,11 @@ import { Facebook, Instagram, Menu, X } from "lucide-react";
 type NavItem = { label: string; href: string; kind?: "link" | "anchor" };
 
 const SHOP_URL = "https://xpeceargentina.mitiendanube.com/";
-const PRODUCT_URL =
-  "https://xpeceargentinadronesdepes.mitiendanube.com/productos/xpece-one-bundle/";
+
+const PRODUCT_BUNDLE_URL =
+  "https://xpeceargentina.mitiendanube.com/productos/xpece-one-bundle/";
+const PRODUCT_BARE_URL =
+  "https://xpeceargentina.mitiendanube.com/productos/xpece-one-bare-ohpz1/";
 
 const ANNOUNCEMENTS = [
   "Envíos a todo el país",
@@ -18,11 +21,23 @@ const ANNOUNCEMENTS = [
   "Soporte en Argentina",
 ];
 
+const ROTATE_ANNOUNCEMENTS_ON_PRODUCT = true;
+
 export function Navbar() {
   const pathname = usePathname();
-  const isProductPage = pathname === "/xpece-one-bundle";
+  const isProductPage =
+    pathname === "/xpece-one-bundle" || pathname === "/xpece-one-bare";
 
   const [open, setOpen] = useState(false);
+
+  const ctaHref = useMemo(() => {
+    if (!isProductPage) return SHOP_URL;
+    if (pathname === "/xpece-one-bare") return PRODUCT_BARE_URL;
+    return PRODUCT_BUNDLE_URL;
+  }, [isProductPage, pathname]);
+
+  const ctaLabel = isProductPage ? "Comprar" : "Tienda";
+  const ctaLabelMobile = isProductPage ? "Comprar ahora" : "Ir a Tienda";
 
   const [activeKey, setActiveKey] = useState<string>(() => {
     if (typeof window === "undefined") return pathname;
@@ -48,6 +63,12 @@ export function Navbar() {
   const [showAnnouncement, setShowAnnouncement] = useState(true);
   const lastY = useRef(0);
   const ticking = useRef(false);
+
+  useEffect(() => {
+    lastY.current = 0;
+    ticking.current = false;
+    setShowAnnouncement(true);
+  }, [pathname]);
 
   useEffect(() => {
     lastY.current = window.scrollY;
@@ -87,10 +108,12 @@ export function Navbar() {
 
   const [annIndex, setAnnIndex] = useState(0);
   useEffect(() => {
-    if (isProductPage) return; // no mostrar ni animar en producto
+    if (isProductPage && !ROTATE_ANNOUNCEMENTS_ON_PRODUCT) return;
+
     const id = setInterval(() => {
       setAnnIndex((i) => (i + 1) % ANNOUNCEMENTS.length);
     }, 3500);
+
     return () => clearInterval(id);
   }, [isProductPage]);
 
@@ -98,6 +121,8 @@ export function Navbar() {
     if (isProductPage) {
       return [
         { label: "Volver al sitio", href: "/", kind: "link" },
+        { label: "ONE Bundle", href: "/xpece-one-bundle", kind: "link" },
+        { label: "ONE Bare", href: "/xpece-one-bare", kind: "link" },
         { label: "Contacto", href: "/contacto", kind: "link" },
       ];
     }
@@ -105,7 +130,8 @@ export function Navbar() {
     return [
       { label: "Home", href: "/", kind: "link" },
       { label: "Opiniones", href: "#opiniones", kind: "anchor" },
-      { label: "XPece One", href: "/xpece-one-bundle", kind: "link" },
+      { label: "ONE Bundle", href: "/xpece-one-bundle", kind: "link" },
+      { label: "ONE Bare", href: "/xpece-one-bare", kind: "link" },
       { label: "Contacto", href: "/contacto", kind: "link" },
     ];
   }, [isProductPage]);
@@ -161,7 +187,6 @@ export function Navbar() {
       );
     }
 
-    // Internal routes
     return (
       <Link
         key={item.href}
@@ -179,45 +204,41 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Announcement bar (solo Home) */}
-      {!isProductPage && (
-        <div
-          className={[
-            "bg-[color:var(--primary)] text-white overflow-hidden transition-all duration-300",
-            showAnnouncement ? "max-h-10 opacity-100" : "max-h-0 opacity-0",
-          ].join(" ")}
-        >
-          <div className="mx-auto max-w-6xl px-4">
-            <div className="h-9 flex items-center justify-center relative">
-              {/* Texto rotativo */}
-              <span
-                key={annIndex}
-                className="text-xs sm:text-sm font-semibold tracking-wide animate-[fadeUp_.28s_ease-out]"
-              >
-                {ANNOUNCEMENTS[annIndex]}
-              </span>
+      {/* annoucement bar */}
+      <div
+        className={[
+          "bg-[color:var(--primary)] text-white overflow-hidden transition-all duration-300",
+          showAnnouncement ? "max-h-10 opacity-100" : "max-h-0 opacity-0",
+        ].join(" ")}
+      >
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="h-9 flex items-center justify-center relative">
+            <span
+              key={annIndex}
+              className="text-xs sm:text-sm font-semibold tracking-wide animate-[fadeUp_.28s_ease-out]"
+            >
+              {ANNOUNCEMENTS[annIndex]}
+            </span>
 
-              {/* Socials a la derecha (solo desktop) */}
-              <div className="absolute right-0 hidden sm:flex items-center gap-3">
-                <a
-                  href="#"
-                  aria-label="Facebook"
-                  className="hover:opacity-80 transition"
-                >
-                  <Facebook size={16} />
-                </a>
-                <a
-                  href="#"
-                  aria-label="Instagram"
-                  className="hover:opacity-80 transition"
-                >
-                  <Instagram size={16} />
-                </a>
-              </div>
+            <div className="absolute right-0 hidden sm:flex items-center gap-3">
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="hover:opacity-80 transition"
+              >
+                <Facebook size={16} />
+              </a>
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="hover:opacity-80 transition"
+              >
+                <Instagram size={16} />
+              </a>
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* Main navbar */}
       <div className="bg-white border-b border-[color:var(--border)]">
@@ -246,7 +267,7 @@ export function Navbar() {
 
             <div className="hidden lg:flex">
               <a
-                href={isProductPage ? PRODUCT_URL : SHOP_URL}
+                href={ctaHref}
                 target="_blank"
                 rel="noreferrer"
                 className="
@@ -259,7 +280,7 @@ export function Navbar() {
                 "
               >
                 <span className="h-2 w-2 rounded-full bg-[color:var(--primary)]" />
-                {isProductPage ? "Comprar" : "Tienda"}
+                {ctaLabel}
               </a>
             </div>
 
@@ -290,7 +311,7 @@ export function Navbar() {
               </div>
 
               <a
-                href={isProductPage ? PRODUCT_URL : SHOP_URL}
+                href={ctaHref}
                 target="_blank"
                 rel="noreferrer"
                 className="
@@ -305,7 +326,7 @@ export function Navbar() {
                 "
                 onClick={() => setOpen(false)}
               >
-                {isProductPage ? "Comprar ahora" : "Ir a Tienda"}
+                {ctaLabelMobile}
               </a>
             </nav>
           </div>
