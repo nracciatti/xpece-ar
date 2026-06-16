@@ -187,7 +187,7 @@ export default function HomePage() {
                   </a>
                   <a
                     className="inline-flex justify-center rounded-full bg-black/5 px-6 py-3 font-semibold text-black hover:bg-black/10 transition"
-                    href="https://wa.me/5491161332326"
+                    href="https://wa.me/5491160201021"
                   >
                     Consultar por WhatsApp
                   </a>

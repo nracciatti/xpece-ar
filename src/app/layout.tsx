@@ -24,7 +24,7 @@ export default function RootLayout({
         {children}
         <Footer />
         <WhatsAppToast
-          waUrl="https://wa.me/5491161332326?text=Hola%20XPece%2C%20tengo%20una%20consulta%20por%20el%20XPece%20ONE."
+          waUrl="https://wa.me/5491160201021?text=Hola%20XPece%2C%20tengo%20una%20consulta%20por%20el%20XPece%20ONE."
           message="¿Consultas? ¡Hablános!"
           delayMs={4000}
         />

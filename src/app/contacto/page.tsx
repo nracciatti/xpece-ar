@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const WA_URL =
-  "https://wa.me/5491161332326?text=Hola%20XPece%2C%20tengo%20una%20consulta%20por%20el%20XPece%20ONE%20Bundle.";
+  "https://wa.me/5491160201021?text=Hola%20XPece%2C%20tengo%20una%20consulta%20por%20el%20XPece%20ONE%20Bundle.";
 
 export default function ContactPage() {
   return (
@@ -66,7 +66,7 @@ export default function ContactPage() {
               <div className="flex items-center justify-between gap-3">
                 <span>WhatsApp</span>
                 <span className="font-semibold text-[color:var(--fg)]">
-                  +54 9 11 6133-2326
+                  +54 9 11 6020-1021
                 </span>
               </div>
               <div className="flex items-center justify-between gap-3">

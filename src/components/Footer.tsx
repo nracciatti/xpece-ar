@@ -107,12 +107,12 @@ export default function Footer() {
               <div>
                 WhatsApp:{" "}
                 <a
-                  href="https://wa.me/5491161332326"
+                  href="https://wa.me/5491160201021"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white"
                 >
-                  +54 9 11 6133-2326
+                  +54 9 11 6020-1021
                 </a>
               </div>
 

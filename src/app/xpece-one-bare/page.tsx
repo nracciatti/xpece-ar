@@ -148,7 +148,7 @@ export default function ProductPage() {
                   </a>
 
                   <a
-                    href="https://wa.me/5491161332326"
+                    href="https://wa.me/5491160201021"
                     target="_blank"
                     rel="noreferrer"
                     className="rounded-full bg-black/5 px-6 py-3 text-sm font-semibold text-[color:var(--fg)] hover:bg-black/10 transition"
@@ -183,7 +183,7 @@ export default function ProductPage() {
               Comprar
             </a>
             <a
-              href="https://wa.me/54911123456789"
+              href="https://wa.me/5491160201021"
               target="_blank"
               rel="noreferrer"
               className="flex-1 text-center rounded-full bg-black/5 px-4 py-3 text-sm font-semibold text-[color:var(--fg)]"
@@ -222,7 +222,7 @@ export default function ProductPage() {
                   </a>
                   <a
                     className="inline-flex justify-center rounded-full bg-black/5 px-6 py-3 font-semibold text-black hover:bg-black/10 transition"
-                    href="https://wa.me/5491161332326"
+                    href="https://wa.me/5491160201021"
                     target="_blank"
                     rel="noreferrer"
                   >
